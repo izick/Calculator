@@ -10,4 +10,7 @@
 
 @interface CalculatorViewController : UIViewController
 
+@property IBOutlet UILabel *display;
+
+
 @end

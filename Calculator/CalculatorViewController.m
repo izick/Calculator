@@ -8,27 +8,41 @@
 
 #import "CalculatorViewController.h"
 
-@interface CalculatorViewController ()
+@interface CalculatorViewController()
+
+@property (nonatomic) BOOL userIsInTheMiddleOfEnteringANumber;
 
 @end
 
+
 @implementation CalculatorViewController
 
-- (void)viewDidLoad
-{
-    [super viewDidLoad];
-	// Do any additional setup after loading the view, typically from a nib.
+@synthesize display;
+@synthesize userIsInTheMiddleOfEnteringANumber;
+
+
+- (IBAction)digitPressed:(UIButton *)sender {
+    NSString *digit = [sender currentTitle];
+    if (userIsInTheMiddleOfEnteringANumber)
+        self.display.text = [self.display.text stringByAppendingString:digit];
+    else {
+        self.display.text = digit;
+        self.userIsInTheMiddleOfEnteringANumber = YES;
+    }
+    
 }
 
-- (void)viewDidUnload
-{
-    [super viewDidUnload];
-    // Release any retained subviews of the main view.
+
+- (IBAction)enterPressed {
 }
 
-- (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
-{
-    return (interfaceOrientation != UIInterfaceOrientationPortraitUpsideDown);
+
+- (IBAction)operationPressed:(UIButton *)sender {
+    NSString *operand = [sender currentTitle];
+    
+    if (operand == @"*") {
+        
+    }
 }
 
 @end
