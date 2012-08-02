@@ -34,11 +34,15 @@
 }
 
 - (id)program {
-    return @"Assignment #2";
+    return [self.programStack copy];
+}
+
++ (NSString *)descriptionOfPrgram:(id)program {
+    return @"Implement this in Assignment 2";
 }
 
 + (double)popOperandOffStack:(id)stack {
-    int result = 0;
+    double result = 0;
     
     id topOfStack = [stack lastObject];
     if (topOfStack)
