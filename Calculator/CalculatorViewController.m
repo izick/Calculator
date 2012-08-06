@@ -20,6 +20,7 @@
 @implementation CalculatorViewController
 
 @synthesize display;
+@synthesize eval;
 @synthesize userIsInTheMiddleOfEnteringANumber;
 @synthesize brain = _brain;
 
@@ -38,13 +39,14 @@
         self.display.text = digit;
         self.userIsInTheMiddleOfEnteringANumber = YES;
     }
-    
 }
 
 
 - (IBAction)enterPressed {
     [self.brain pushOperand:[self.display.text doubleValue]];
     self.userIsInTheMiddleOfEnteringANumber = NO;
+    self.eval.text = [self.brain evalList];
+
 }
 
 
@@ -54,6 +56,7 @@
     }
     double result = [self.brain performOperation:[sender currentTitle]];
     self.display.text = [NSString stringWithFormat:@"%g", result];
+    self.eval.text = [self.brain evalList];
 }
 
 @end

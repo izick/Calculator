@@ -12,6 +12,7 @@
 
 - (void)pushOperand:(double)operand;
 - (double)performOperation:(NSString *)operation;
+- (NSString *)evaluList;
 
 @property (readonly) id program;
 
