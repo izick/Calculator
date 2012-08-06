@@ -46,7 +46,23 @@
     [self.brain pushOperand:[self.display.text doubleValue]];
     self.userIsInTheMiddleOfEnteringANumber = NO;
     self.eval.text = [self.brain evalList];
+}
 
+- (IBAction)backspace {
+    if (self.display.text.length == 1) {
+        self.userIsInTheMiddleOfEnteringANumber = NO;
+        self.display.text = @"";
+    } else if (userIsInTheMiddleOfEnteringANumber) {
+        self.display.text = [self.display.text substringToIndex:(self.display.text.length - 1)];
+    }
+}
+
+- (IBAction)plusminus {
+    if ([self.display.text characterAtIndex:0] == '-')
+        self.display.text = [self.display.text substringFromIndex:1];
+    else {
+        self.display.text = [NSString stringWithFormat:@"-%@", self.display.text];
+    }
 }
 
 

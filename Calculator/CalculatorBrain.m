@@ -20,15 +20,17 @@
 
 - (NSMutableArray *)programStack
 {
-    if (!_programStack)
+    if (!_programStack) {
         _programStack = [[NSMutableArray alloc] init];
+        evalArray = [[NSMutableArray alloc] init];
+    }
 
     return _programStack;
 }
 
 - (void)pushOperand:(double)operand {
     [self.programStack addObject:[NSNumber numberWithDouble:operand]];
-    [self.evalArray addObject:[NSString stringWithFormat:@"%g",operand]];
+    [self.evalArray insertObject:[NSString stringWithFormat:@"%g",operand] atIndex:0];
 }
 
 + (NSString *)descriptionOfPrgram:(id)program {
@@ -80,6 +82,7 @@
 
 - (double)performOperation:(NSString *)operation {
     [self.programStack addObject:operation];
+    [self.evalArray insertObject:operation atIndex:0];
     return [[self class] runProgram:self.program];
 }
 
@@ -88,9 +91,13 @@
 }
 
 - (NSString *)evalList {
+    NSString *str = @"";
+    
     if (evalArray.count > 6)
         [evalArray removeLastObject];
-    
+    for (NSString *item in [evalArray reverseObjectEnumerator])
+        str = [str stringByAppendingFormat:@"%@ ",item];
+    return str;
 }
 
 @end
