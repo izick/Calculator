@@ -33,8 +33,13 @@
     [self.evalArray insertObject:[NSString stringWithFormat:@"%g",operand] atIndex:0];
 }
 
-+ (NSString *)descriptionOfPrgram:(id)program {
-    return @"Implement this in Assignment 2";
++ (NSString *)descriptionOfProgram:(id)program {
+    NSString *str = @"";
+    
+    if ([program isKindOfClass:[NSArray class]])
+        for (NSString *item in [program mutableCopy])
+            str = [str stringByAppendingFormat:@"%@ ",item];
+    return str;
 }
 
 + (double)popOperandOffStack:(id)stack {
@@ -99,5 +104,6 @@
         str = [str stringByAppendingFormat:@"%@ ",item];
     return str;
 }
+
 
 @end

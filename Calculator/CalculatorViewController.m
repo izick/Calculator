@@ -45,7 +45,8 @@
 - (IBAction)enterPressed {
     [self.brain pushOperand:[self.display.text doubleValue]];
     self.userIsInTheMiddleOfEnteringANumber = NO;
-    self.eval.text = [self.brain evalList];
+    self.eval.text = [self eval:[CalculatorBrain descriptionOfProgram:self.brain.program]];
+//    self.eval.text = [self.brain evalList];
 }
 
 - (IBAction)backspace {
@@ -61,7 +62,7 @@
     if ([self.display.text characterAtIndex:0] == '-')
         self.display.text = [self.display.text substringFromIndex:1];
     else {
-        self.display.text = [NSString stringWithFormat:@"-%@", self.display.text];
+        self.display.text = [NSString stringWithFormat:@"-%g", self.display.text];
     }
 }
 
@@ -72,7 +73,14 @@
     }
     double result = [self.brain performOperation:[sender currentTitle]];
     self.display.text = [NSString stringWithFormat:@"%g", result];
-    self.eval.text = [self.brain evalList];
+    self.eval.text = [self eval:[CalculatorBrain descriptionOfProgram:self.brain.program]];
+    //self.eval.text = [self.brain evalList];
+}
+
+- (NSString *)eval:(NSString *)str {
+    if (str.length > 40)
+        return [str substringFromIndex:(str.length - 40)];
+    return str;
 }
 
 @end
