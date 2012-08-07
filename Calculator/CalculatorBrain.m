@@ -10,19 +10,19 @@
 
 @interface CalculatorBrain()
 @property (nonatomic, strong)NSMutableArray *programStack;
-@property (nonatomic, strong)NSMutableArray *evalArray;
+@property (nonatomic, strong)NSMutableDictionary *variables;
 @end
 
 @implementation CalculatorBrain
 
 @synthesize programStack = _programStack;
-@synthesize evalArray;
+@synthesize variables;
 
 - (NSMutableArray *)programStack
 {
     if (!_programStack) {
         _programStack = [[NSMutableArray alloc] init];
-        evalArray = [[NSMutableArray alloc] init];
+        variables = [NSMutableDictionary dictionaryWithCapacity:3];
     }
 
     return _programStack;
@@ -30,7 +30,6 @@
 
 - (void)pushOperand:(double)operand {
     [self.programStack addObject:[NSNumber numberWithDouble:operand]];
-    [self.evalArray insertObject:[NSString stringWithFormat:@"%g",operand] atIndex:0];
 }
 
 + (NSString *)descriptionOfProgram:(id)program {
@@ -73,8 +72,26 @@
             return (22/7.0);
         } else if ([operation isEqualToString:@"e"])
             return 2.71828;
+        } else {
+            [variables setObject:[self popOperandOffStack:stack] forKey:operation];
+        }
     }
     return result;
+}
+
++ (NSSet *)variablesUsedInProgram:(id)program {
+    NSMutableSet *set = [[NSMutableSet alloc] init];
+    int i;
+
+    if ([program isKindOfClass:[NSArray class]]) {
+        for (NSObject *obj in program) {
+            if ([obj isKindOfClass:[NSString class]] && (obj == @"X" || obj == @"Y" || obj == @"Z"))
+                [set addObject:[NSNumber numberWithUnsignedInteger:i]];
+            i++;
+        }
+    }
+    return set;
+            
 }
 
 + (double)runProgram:(id)program {
@@ -85,9 +102,28 @@
     return [self popOperandOffStack:stack];
 }
 
++ (double)runProgram:(id)program usingVariableValues:(NSDictionary *)variableValues {
+    NSMutableArray *stack;
+    NSSet *set;
+    double result = 0;
+    
+    if ([program isKindOfClass:[NSArray class]])
+        stack = [program mutableCopy];
+    if ((set = [self variablesUsedInProgram:stack]))
+        for (NSNumber *i in set) {
+            NSString *value = [variableValues objectForKey:[stack objectAtIndex:(NSUInteger)i]];
+            if (value)
+                [stack replaceObjectAtIndex:(NSUInteger)i withObject:value];
+            else
+                [stack replaceObjectAtIndex:(NSUInteger)i withObject:0];
+        }
+    [self popOperandOffStack:stack];
+    return result;
+    
+}
+
 - (double)performOperation:(NSString *)operation {
     [self.programStack addObject:operation];
-    [self.evalArray insertObject:operation atIndex:0];
     return [[self class] runProgram:self.program];
 }
 
@@ -95,15 +131,6 @@
     return [self.programStack copy];
 }
 
-- (NSString *)evalList {
-    NSString *str = @"";
-    
-    if (evalArray.count > 6)
-        [evalArray removeLastObject];
-    for (NSString *item in [evalArray reverseObjectEnumerator])
-        str = [str stringByAppendingFormat:@"%@ ",item];
-    return str;
-}
 
 
 @end
