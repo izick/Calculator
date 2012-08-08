@@ -449,18 +449,36 @@
                                     <action selector="operationPressed:" destination="2" eventType="touchUpInside" id="qUR-y0-Rkb"/>
                                 </connections>
                             </button>
+                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="10" id="cJy-CF-lqE">
+                                <rect key="frame" x="20" y="439" width="209" height="21"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                     </view>
                     <connections>
                         <outlet property="display" destination="1gx-z6-721" id="dmo-Wl-ZZb"/>
                         <outlet property="eval" destination="kUB-TE-ypk" id="aJv-df-ZcU"/>
+                        <outlet property="variable_display" destination="cJy-CF-lqE" id="FI7-zg-57q"/>
                     </connections>
                 </viewController>
             </objects>
             <point key="canvasLocation" x="-366" y="133"/>
         </scene>
     </scenes>
+    <classes>
+        <class className="CalculatorViewController" superclassName="UIViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/CalculatorViewController.h"/>
+            <relationships>
+                <relationship kind="outlet" name="display" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="eval" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="variable_display" candidateClass="UILabel"/>
+            </relationships>
+        </class>
+    </classes>
     <simulatedMetricsContainer key="defaultSimulatedMetrics">
         <simulatedStatusBarMetrics key="statusBar"/>
         <simulatedOrientationMetrics key="orientation"/>

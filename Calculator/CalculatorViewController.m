@@ -13,6 +13,7 @@
 
 @property (nonatomic) BOOL userIsInTheMiddleOfEnteringANumber;
 @property (nonatomic, strong) CalculatorBrain *brain;
+@property (nonatomic, strong) NSMutableDictionary *variables;
 
 @end
 
@@ -21,13 +22,21 @@
 
 @synthesize display;
 @synthesize eval;
+@synthesize variable_display;
 @synthesize userIsInTheMiddleOfEnteringANumber;
 @synthesize brain = _brain;
+@synthesize variables;
 
 - (CalculatorBrain *)brain
 {
-    if(!_brain)
+    if(!_brain) {
         _brain = [[CalculatorBrain alloc] init];
+        variables = [NSMutableDictionary dictionaryWithObjectsAndKeys:
+                     [NSNumber numberWithDouble:7], @"X",
+                     [NSNumber numberWithDouble:5], @"Y",
+                     [NSNumber numberWithDouble:3.3], @"Z",
+                     nil];
+    }
     return _brain;
 }
 
@@ -71,10 +80,21 @@
     if (self.userIsInTheMiddleOfEnteringANumber) {
         [self enterPressed];
     }
-    double result = [self.brain performOperation:[sender currentTitle]];
+    double result = [self.brain performOperation:[sender currentTitle]: variables];
     self.display.text = [NSString stringWithFormat:@"%g", result];
     self.eval.text = [self eval:[CalculatorBrain descriptionOfProgram:self.brain.program]];
-    //self.eval.text = [self.brain evalList];
+    self.variable_display.text = [self variableDisplay];
+}
+
+- (NSString *)variableDisplay {
+    NSEnumerator *keys = [variables keyEnumerator];
+    id key;
+    NSString *str = @"";
+
+    while (key = [keys nextObject]) {
+        str = [str stringByAppendingFormat:@"%@ = %@  ", key, [variables objectForKey:key]];
+    }
+    return str;
 }
 
 - (NSString *)eval:(NSString *)str {
@@ -83,4 +103,8 @@
     return str;
 }
 
+- (void)viewDidUnload {
+    [self setVariable_display:nil];
+    [super viewDidUnload];
+}
 @end

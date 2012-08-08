@@ -10,19 +10,23 @@
 
 @interface CalculatorBrain()
 @property (nonatomic, strong)NSMutableArray *programStack;
-@property (nonatomic, strong)NSMutableDictionary *variables;
+@property (nonatomic, strong)NSDictionary *vars;
 @end
 
 @implementation CalculatorBrain
 
 @synthesize programStack = _programStack;
-@synthesize variables;
+@synthesize vars;
 
 - (NSMutableArray *)programStack
 {
     if (!_programStack) {
         _programStack = [[NSMutableArray alloc] init];
-        variables = [NSMutableDictionary dictionaryWithCapacity:3];
+        vars = [NSDictionary dictionaryWithObjectsAndKeys:
+        [NSNumber numberWithDouble:7], @"X",
+        [NSNumber numberWithDouble:5], @"Y",
+        [NSNumber numberWithDouble:3.3], @"Z", nil];
+
     }
 
     return _programStack;
@@ -32,12 +36,51 @@
     [self.programStack addObject:[NSNumber numberWithDouble:operand]];
 }
 
++ (NSString *)parser:(id)stack {
+    
+    id topOfStack = [stack lastObject];
+    if (topOfStack)
+        [stack removeLastObject];
+    if ([topOfStack isKindOfClass:[NSNumber class]])
+        return [NSString stringWithFormat:@"%@", topOfStack];
+    NSString *operation = topOfStack;
+    if ([operation isEqualToString:@"+"]) {
+        NSString *v = [NSString stringWithFormat:@"%@", [self parser:stack]];
+        return [NSString stringWithFormat:@"( %@ + %@ )",[self parser:stack], v];
+    } else if ([operation isEqualToString:@"*"]) {
+        NSString *v = [NSString stringWithFormat:@"%@", [self parser:stack]];
+        return [NSString stringWithFormat:@"( %@ * %@ )",[self parser:stack], v];
+    } else if ([operation isEqualToString:@"-"]) {
+        NSString *v = [NSString stringWithFormat:@"%@", [self parser:stack]];
+        return [NSString stringWithFormat:@"( %@ - %@ )",[self parser:stack], v];
+    } else if ([operation isEqualToString:@"/"]) {
+        NSString *v = [NSString stringWithFormat:@"%@", [self parser:stack]];
+        return [NSString stringWithFormat:@"( %@ / %@ )",[self parser:stack], v];
+    } else if ([operation isEqualToString:@"SIN"]) {
+        return [NSString stringWithFormat:@"SIN( %@ )",[self parser:stack]];
+    } else if ([operation isEqualToString:@"COS"]) {
+        return [NSString stringWithFormat:@"COS( %@ )",[self parser:stack]];
+    } else if ([operation isEqualToString:@"SQRT"]) {
+        return [NSString stringWithFormat:@"SQRT( %@ )",[self parser:stack]];
+    } else
+        return [NSString stringWithFormat:@"%@", topOfStack];
+    return @" ";
+}
+
 + (NSString *)descriptionOfProgram:(id)program {
     NSString *str = @"";
     
     if ([program isKindOfClass:[NSArray class]])
+        str = [self parser:[program mutableCopy]];
+    return str;
+    /*
+    if ([program isKindOfClass:[NSArray class]])
         for (NSString *item in [program mutableCopy])
             str = [str stringByAppendingFormat:@"%@ ",item];
+    return str;
+     */
+    
+    
     return str;
 }
 
@@ -72,20 +115,20 @@
             return (22/7.0);
         } else if ([operation isEqualToString:@"e"])
             return 2.71828;
-        } else {
-            [variables setObject:[self popOperandOffStack:stack] forKey:operation];
-        }
+
     }
     return result;
 }
 
 + (NSSet *)variablesUsedInProgram:(id)program {
     NSMutableSet *set = [[NSMutableSet alloc] init];
-    int i;
+    int i = 0;
 
     if ([program isKindOfClass:[NSArray class]]) {
         for (NSObject *obj in program) {
-            if ([obj isKindOfClass:[NSString class]] && (obj == @"X" || obj == @"Y" || obj == @"Z"))
+            if ([obj isKindOfClass:[NSString class]] && ([(NSString *)obj isEqualToString:@"X"] ||
+                [(NSString *)obj isEqualToString:@"Y"] ||
+                [(NSString *)obj isEqualToString:@"Z"]))
                 [set addObject:[NSNumber numberWithUnsignedInteger:i]];
             i++;
         }
@@ -102,29 +145,33 @@
     return [self popOperandOffStack:stack];
 }
 
-+ (double)runProgram:(id)program usingVariableValues:(NSDictionary *)variableValues {
++ (double)runProgram:(id)program usingVariableValues: (NSDictionary *)variableValues {
     NSMutableArray *stack;
     NSSet *set;
-    double result = 0;
     
     if ([program isKindOfClass:[NSArray class]])
         stack = [program mutableCopy];
     if ((set = [self variablesUsedInProgram:stack]))
         for (NSNumber *i in set) {
-            NSString *value = [variableValues objectForKey:[stack objectAtIndex:(NSUInteger)i]];
+            unsigned int ui = [i unsignedIntValue];
+            NSNumber *value = [variableValues objectForKey:[stack objectAtIndex:ui]];
             if (value)
-                [stack replaceObjectAtIndex:(NSUInteger)i withObject:value];
+                [stack replaceObjectAtIndex:ui withObject:value];
             else
-                [stack replaceObjectAtIndex:(NSUInteger)i withObject:0];
+                [stack replaceObjectAtIndex:ui withObject:0];
         }
-    [self popOperandOffStack:stack];
-    return result;
+    return [self popOperandOffStack:stack];
     
 }
 
 - (double)performOperation:(NSString *)operation {
     [self.programStack addObject:operation];
     return [[self class] runProgram:self.program];
+}
+
+- (double)performOperation:(NSString *)operation: (NSDictionary *)variables {
+    [self.programStack addObject:operation];
+    return [[self class] runProgram:self.program usingVariableValues:variables];
 }
 
 - (id)program {

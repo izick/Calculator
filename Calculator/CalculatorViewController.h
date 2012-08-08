@@ -12,5 +12,7 @@
 
 @property (weak, nonatomic) IBOutlet UILabel *display;
 @property (weak, nonatomic) IBOutlet UILabel *eval;
+@property (weak, nonatomic) IBOutlet UILabel *variable_display;
+
 
 @end
