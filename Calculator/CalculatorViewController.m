@@ -14,6 +14,7 @@
 @property (nonatomic) BOOL userIsInTheMiddleOfEnteringANumber;
 @property (nonatomic, strong) CalculatorBrain *brain;
 @property (nonatomic, strong) NSMutableDictionary *variables;
+@property (weak, nonatomic) IBOutlet UIButton *graph;
 
 @end
 
@@ -26,6 +27,7 @@
 @synthesize userIsInTheMiddleOfEnteringANumber;
 @synthesize brain = _brain;
 @synthesize variables;
+@synthesize graph;
 
 - (CalculatorBrain *)brain
 {
@@ -105,6 +107,7 @@
 
 - (void)viewDidUnload {
     [self setVariable_display:nil];
+    [self setGraph:nil];
     [super viewDidUnload];
 }
 @end

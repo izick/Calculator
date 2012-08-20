@@ -16,6 +16,8 @@
 		AA84777D15C078BF00869EBF /* MainStoryboard.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = AA84777B15C078BF00869EBF /* MainStoryboard.storyboard */; };
 		AA84778015C078BF00869EBF /* CalculatorViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AA84777F15C078BF00869EBF /* CalculatorViewController.m */; };
 		AA977C4215C0FBB90084E636 /* CalculatorBrain.m in Sources */ = {isa = PBXBuildFile; fileRef = AA977C4115C0FBB90084E636 /* CalculatorBrain.m */; };
+		AABED06715E2F9EB009116DB /* GraphViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AABED06415E2F9EB009116DB /* GraphViewController.m */; };
+		AABED06815E2F9EB009116DB /* GraphView.m in Sources */ = {isa = PBXBuildFile; fileRef = AABED06615E2F9EB009116DB /* GraphView.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -34,6 +36,10 @@
 		AA84777F15C078BF00869EBF /* CalculatorViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CalculatorViewController.m; sourceTree = "<group>"; };
 		AA977C4015C0FBB90084E636 /* CalculatorBrain.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CalculatorBrain.h; sourceTree = "<group>"; };
 		AA977C4115C0FBB90084E636 /* CalculatorBrain.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CalculatorBrain.m; sourceTree = "<group>"; };
+		AABED06315E2F9EB009116DB /* GraphViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GraphViewController.h; sourceTree = "<group>"; };
+		AABED06415E2F9EB009116DB /* GraphViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GraphViewController.m; sourceTree = "<group>"; };
+		AABED06515E2F9EB009116DB /* GraphView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GraphView.h; sourceTree = "<group>"; };
+		AABED06615E2F9EB009116DB /* GraphView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GraphView.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -87,6 +93,10 @@
 				AA977C4115C0FBB90084E636 /* CalculatorBrain.m */,
 				AA84777E15C078BF00869EBF /* CalculatorViewController.h */,
 				AA84777F15C078BF00869EBF /* CalculatorViewController.m */,
+				AABED06315E2F9EB009116DB /* GraphViewController.h */,
+				AABED06415E2F9EB009116DB /* GraphViewController.m */,
+				AABED06515E2F9EB009116DB /* GraphView.h */,
+				AABED06615E2F9EB009116DB /* GraphView.m */,
 				AA84777015C078BF00869EBF /* Supporting Files */,
 			);
 			path = Calculator;
@@ -170,6 +180,8 @@
 				AA84777A15C078BF00869EBF /* CalculatorAppDelegate.m in Sources */,
 				AA84778015C078BF00869EBF /* CalculatorViewController.m in Sources */,
 				AA977C4215C0FBB90084E636 /* CalculatorBrain.m in Sources */,
+				AABED06715E2F9EB009116DB /* GraphViewController.m in Sources */,
+				AABED06815E2F9EB009116DB /* GraphView.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
