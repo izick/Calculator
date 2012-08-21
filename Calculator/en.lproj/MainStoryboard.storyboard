@@ -431,6 +431,7 @@
                                     <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                                 <connections>
+                                    <action selector="graphPressed:" destination="2" eventType="touchUpInside" id="msL-zm-L4p"/>
                                     <action selector="operationPressed:" destination="2" eventType="touchUpInside" id="qUR-y0-Rkb"/>
                                 </connections>
                             </button>
@@ -456,17 +457,21 @@
             </objects>
             <point key="canvasLocation" x="53" y="133"/>
         </scene>
-        <!--View Controller - Graph-->
+        <!--Graph View Controller - Graph-->
         <scene sceneID="ws2-Yh-7Qd">
             <objects>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="bL1-oG-oJc" userLabel="First Responder" sceneMemberID="firstResponder"/>
-                <viewController id="gA8-iO-qTa" sceneMemberID="viewController">
-                    <view key="view" contentMode="scaleToFill" id="7Sy-lv-X8g">
+                <viewController id="gA8-iO-qTa" customClass="GraphViewController" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="7Sy-lv-X8g" customClass="GraphView">
                         <rect key="frame" x="0.0" y="64" width="320" height="416"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                     </view>
                     <navigationItem key="navigationItem" title="Graph" id="MyM-NP-6Uw"/>
+                    <connections>
+                        <outlet property="graphview" destination="7Sy-lv-X8g" id="ppn-wx-MgI"/>
+                        <outlet property="view" destination="7Sy-lv-X8g" id="Lrw-LD-mff"/>
+                    </connections>
                 </viewController>
             </objects>
             <point key="canvasLocation" x="464" y="133"/>
@@ -490,6 +495,29 @@
             <point key="canvasLocation" x="-366" y="133"/>
         </scene>
     </scenes>
+    <classes>
+        <class className="CalculatorViewController" superclassName="UIViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/CalculatorViewController.h"/>
+            <relationships>
+                <relationship kind="outlet" name="display" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="eval" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="graph" candidateClass="UIButton"/>
+                <relationship kind="outlet" name="variable_display" candidateClass="UILabel"/>
+            </relationships>
+        </class>
+        <class className="GraphView" superclassName="UIView">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/GraphView.h"/>
+            <relationships>
+                <relationship kind="outlet" name="dataSource"/>
+            </relationships>
+        </class>
+        <class className="GraphViewController" superclassName="UIViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/GraphViewController.h"/>
+            <relationships>
+                <relationship kind="outlet" name="graphview" candidateClass="GraphView"/>
+            </relationships>
+        </class>
+    </classes>
     <simulatedMetricsContainer key="defaultSimulatedMetrics">
         <simulatedStatusBarMetrics key="statusBar"/>
         <simulatedOrientationMetrics key="orientation"/>

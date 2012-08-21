@@ -10,7 +10,7 @@
 
 @interface GraphViewController : UIViewController
 
-@property (nonatomic) int happiness;
+@property (nonatomic, weak) NSString *equation;
 
 
 @end

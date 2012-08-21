@@ -42,6 +42,16 @@
     return _brain;
 }
 
+- (IBAction)graphPressed:(id)sender {
+    [self performSegueWithIdentifier:@"Graph" sender:self];
+}
+
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
+{
+    if ([segue.identifier isEqualToString:@"Graph"])
+        [segue destinationViewController setEquation:self.display.text];
+}
+
 - (IBAction)digitPressed:(UIButton *)sender {
     NSString *digit = [sender currentTitle];
     if (userIsInTheMiddleOfEnteringANumber)
@@ -51,7 +61,6 @@
         self.userIsInTheMiddleOfEnteringANumber = YES;
     }
 }
-
 
 - (IBAction)enterPressed {
     [self.brain pushOperand:[self.display.text doubleValue]];
