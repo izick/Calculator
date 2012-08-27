@@ -8,13 +8,14 @@
 
 #import "CalculatorViewController.h"
 #import "CalculatorBrain.h"
+#import "GraphViewController.h"
 
 @interface CalculatorViewController()
 
 @property (nonatomic) BOOL userIsInTheMiddleOfEnteringANumber;
 @property (nonatomic, strong) CalculatorBrain *brain;
 @property (nonatomic, strong) NSMutableDictionary *variables;
-@property (weak, nonatomic) IBOutlet UIButton *graph;
+//@property (weak, nonatomic) IBOutlet UIButton *graph;
 
 @end
 
@@ -27,7 +28,7 @@
 @synthesize userIsInTheMiddleOfEnteringANumber;
 @synthesize brain = _brain;
 @synthesize variables;
-@synthesize graph;
+//@synthesize graph;
 
 - (CalculatorBrain *)brain
 {
@@ -48,8 +49,9 @@
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
 {
-    if ([segue.identifier isEqualToString:@"Graph"])
-        [segue destinationViewController setEquation:self.display.text];
+    if ([segue.identifier isEqualToString:@"Graph"]) {
+        [segue.destinationViewController setEquation:self.display.text];
+    }
 }
 
 - (IBAction)digitPressed:(UIButton *)sender {
@@ -82,7 +84,7 @@
     if ([self.display.text characterAtIndex:0] == '-')
         self.display.text = [self.display.text substringFromIndex:1];
     else {
-        self.display.text = [NSString stringWithFormat:@"-%g", self.display.text];
+        self.display.text = [NSString stringWithFormat:@"-%@", self.display.text];
     }
 }
 
@@ -116,7 +118,7 @@
 
 - (void)viewDidUnload {
     [self setVariable_display:nil];
-    [self setGraph:nil];
+//    [self setGraph:nil];
     [super viewDidUnload];
 }
 @end

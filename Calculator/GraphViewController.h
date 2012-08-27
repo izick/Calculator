@@ -12,5 +12,4 @@
 
 @property (nonatomic, weak) NSString *equation;
 
-
 @end

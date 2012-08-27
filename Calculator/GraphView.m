@@ -31,6 +31,12 @@
 {
     self.contentMode = UIViewContentModeRedraw;
     self.scale = 0.95;
+    
+}
+
+- (int)flipY:(int)y
+{
+    return (self.bounds.size.height - y);
 }
 
 - (void)awakeFromNib
@@ -47,6 +53,8 @@
     }
     return self;
 }
+
+- (void)drawEquation(
 
 - (void)drawCircleAtPoint:(CGPoint)pt radius:(CGFloat)radius inContext:(CGContextRef)context
 {

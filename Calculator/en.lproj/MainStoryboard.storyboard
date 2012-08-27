@@ -1,9 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="1.1" toolsVersion="2182" systemVersion="11E53" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" initialViewController="zw0-3T-6qc">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="2.0" toolsVersion="2549" systemVersion="12B19" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" initialViewController="zw0-3T-6qc">
     <dependencies>
         <deployment defaultVersion="1296" identifier="iOS"/>
-        <development defaultVersion="4200" identifier="xcode"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="1181"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="1498"/>
     </dependencies>
     <scenes>
         <!--Calculator View Controller - Calculator-->
@@ -432,7 +431,6 @@
                                 </state>
                                 <connections>
                                     <action selector="graphPressed:" destination="2" eventType="touchUpInside" id="msL-zm-L4p"/>
-                                    <action selector="operationPressed:" destination="2" eventType="touchUpInside" id="qUR-y0-Rkb"/>
                                 </connections>
                             </button>
                             <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="10" id="cJy-CF-lqE">
@@ -449,9 +447,8 @@
                     <connections>
                         <outlet property="display" destination="1gx-z6-721" id="dmo-Wl-ZZb"/>
                         <outlet property="eval" destination="kUB-TE-ypk" id="aJv-df-ZcU"/>
-                        <outlet property="graph" destination="IRW-Cy-cdI" id="zZb-TC-PDN"/>
                         <outlet property="variable_display" destination="cJy-CF-lqE" id="FI7-zg-57q"/>
-                        <segue destination="gA8-iO-qTa" kind="push" id="L7h-cp-spd"/>
+                        <segue destination="gA8-iO-qTa" kind="push" identifier="Graph" id="u5q-df-Fm2"/>
                     </connections>
                 </viewController>
             </objects>
@@ -461,7 +458,7 @@
         <scene sceneID="ws2-Yh-7Qd">
             <objects>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="bL1-oG-oJc" userLabel="First Responder" sceneMemberID="firstResponder"/>
-                <viewController id="gA8-iO-qTa" customClass="GraphViewController" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="" id="gA8-iO-qTa" customClass="GraphViewController" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="7Sy-lv-X8g" customClass="GraphView">
                         <rect key="frame" x="0.0" y="64" width="320" height="416"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -470,7 +467,6 @@
                     <navigationItem key="navigationItem" title="Graph" id="MyM-NP-6Uw"/>
                     <connections>
                         <outlet property="graphview" destination="7Sy-lv-X8g" id="ppn-wx-MgI"/>
-                        <outlet property="view" destination="7Sy-lv-X8g" id="Lrw-LD-mff"/>
                     </connections>
                 </viewController>
             </objects>
@@ -499,9 +495,11 @@
         <class className="CalculatorViewController" superclassName="UIViewController">
             <source key="sourceIdentifier" type="project" relativePath="./Classes/CalculatorViewController.h"/>
             <relationships>
+                <relationship kind="action" name="digitPressed:" candidateClass="UIButton"/>
+                <relationship kind="action" name="graphPressed:"/>
+                <relationship kind="action" name="operationPressed:" candidateClass="UIButton"/>
                 <relationship kind="outlet" name="display" candidateClass="UILabel"/>
                 <relationship kind="outlet" name="eval" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="graph" candidateClass="UIButton"/>
                 <relationship kind="outlet" name="variable_display" candidateClass="UILabel"/>
             </relationships>
         </class>
