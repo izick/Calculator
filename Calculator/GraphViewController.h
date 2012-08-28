@@ -7,9 +7,10 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "CalculatorDataSource.h"
 
 @interface GraphViewController : UIViewController
 
-@property (nonatomic, weak) NSString *equation;
+@property (nonatomic, strong) IBOutlet id <CalculatorDataSource> dataSource;
 
 @end

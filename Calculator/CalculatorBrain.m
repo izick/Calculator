@@ -72,15 +72,7 @@
     
     if ([program isKindOfClass:[NSArray class]])
         str = [self parser:[program mutableCopy]];
-    return str;
-    /*
-    if ([program isKindOfClass:[NSArray class]])
-        for (NSString *item in [program mutableCopy])
-            str = [str stringByAppendingFormat:@"%@ ",item];
-    return str;
-     */
-    
-    
+
     return str;
 }
 

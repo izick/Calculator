@@ -36,6 +36,7 @@
 		AA84777F15C078BF00869EBF /* CalculatorViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CalculatorViewController.m; sourceTree = "<group>"; };
 		AA977C4015C0FBB90084E636 /* CalculatorBrain.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CalculatorBrain.h; sourceTree = "<group>"; };
 		AA977C4115C0FBB90084E636 /* CalculatorBrain.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CalculatorBrain.m; sourceTree = "<group>"; };
+		AABD81E915ED538600AE3579 /* CalculatorDataSource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CalculatorDataSource.h; sourceTree = "<group>"; };
 		AABED06315E2F9EB009116DB /* GraphViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GraphViewController.h; sourceTree = "<group>"; };
 		AABED06415E2F9EB009116DB /* GraphViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GraphViewController.m; sourceTree = "<group>"; };
 		AABED06515E2F9EB009116DB /* GraphView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GraphView.h; sourceTree = "<group>"; };
@@ -93,6 +94,7 @@
 				AA977C4115C0FBB90084E636 /* CalculatorBrain.m */,
 				AA84777E15C078BF00869EBF /* CalculatorViewController.h */,
 				AA84777F15C078BF00869EBF /* CalculatorViewController.m */,
+				AABD81E915ED538600AE3579 /* CalculatorDataSource.h */,
 				AABED06315E2F9EB009116DB /* GraphViewController.h */,
 				AABED06415E2F9EB009116DB /* GraphViewController.m */,
 				AABED06515E2F9EB009116DB /* GraphView.h */,

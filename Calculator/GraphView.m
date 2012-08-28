@@ -54,7 +54,10 @@
     return self;
 }
 
-- (void)drawEquation(
+- (void)drawEquation
+{
+    [self.dataSource getPoints:self x:1];
+}
 
 - (void)drawCircleAtPoint:(CGPoint)pt radius:(CGFloat)radius inContext:(CGContextRef)context
 {

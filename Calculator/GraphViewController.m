@@ -6,6 +6,7 @@
 //  Copyright (c) 2012 __MyCompanyName__. All rights reserved.
 //
 
+#import "CalculatorDataSource.h"
 #import "GraphViewController.h"
 #import "GraphView.h"
 
@@ -16,11 +17,11 @@
 
 @implementation GraphViewController
 @synthesize graphview = _graphview;
-@synthesize equation = _equation;
+@synthesize dataSource = _dataSource;
 
-- (void)setEquation:(NSString *)equation
+- (void)setDataSource:(id<CalculatorDataSource>)data
 {
-    _equation = equation;
+    _dataSource = data;
     [self.graphview setNeedsDisplay];
 }
 
@@ -33,7 +34,6 @@
     [self.graphview addGestureRecognizer:[[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(smile:)]];
 }
 
-
 - (void) smile:(UIPanGestureRecognizer *)gesture
 {
     if (gesture.state == UIGestureRecognizerStateChanged ||
@@ -43,6 +43,17 @@
         [gesture setTranslation:CGPointMake(0, 0) inView:self.graphview];
     }
 }
+
+/*
+- (CGPoint)getPoints:(NSString *)equation :(double)x
+{
+    CGPoint point;
+    point.x = x;
+    [variables setObject:[NSNumber numberWithDouble:x] forKey:@"X"];
+    point.y = [self.brain performOperation:equation :variables];
+    return point;
+}
+*/
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation
 {

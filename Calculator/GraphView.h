@@ -7,13 +7,15 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "CalculatorDataSource.h"
 
-@class GraphView;
+//@protocol GraphViewDataSource;
 
+/*
 @protocol GraphViewDataSource
-- (float)smileForGraphView:(GraphView *)sender;
+- (CGPoint)getPoints:(GraphView *)sender x:(double)x;
 @end
-
+*/
 @interface GraphView : UIView
 
 @property (nonatomic) CGFloat scale;
@@ -21,5 +23,5 @@
 
 - (void)pinch:(UIPinchGestureRecognizer *)gesture;
 
-@property (nonatomic, weak) IBOutlet id <GraphViewDataSource> dataSource;
+@property (nonatomic, weak) IBOutlet id <CalculatorDataSource> dataSource;
 @end

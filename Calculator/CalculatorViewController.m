@@ -9,8 +9,9 @@
 #import "CalculatorViewController.h"
 #import "CalculatorBrain.h"
 #import "GraphViewController.h"
+#import "CalculatorDataSource.h"
 
-@interface CalculatorViewController()
+@interface CalculatorViewController() <CalculatorDataSource>
 
 @property (nonatomic) BOOL userIsInTheMiddleOfEnteringANumber;
 @property (nonatomic, strong) CalculatorBrain *brain;
@@ -50,7 +51,7 @@
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
 {
     if ([segue.identifier isEqualToString:@"Graph"]) {
-        [segue.destinationViewController setEquation:self.display.text];
+        [segue.destinationViewController setDataSource:self];
     }
 }
 
@@ -121,4 +122,15 @@
 //    [self setGraph:nil];
     [super viewDidUnload];
 }
+
+
+- (CGPoint)getPoints:(double)x
+{
+    CGPoint point;
+    point.x = x;
+    [variables setObject:[NSNumber numberWithDouble:x] forKey:@"X"];
+    point.y = [self.brain performOperation:self.display.text :variables];
+    return point;
+}
+
 @end
