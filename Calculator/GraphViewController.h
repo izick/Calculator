@@ -11,6 +11,5 @@
 
 @interface GraphViewController : UIViewController
 
-@property (nonatomic, strong) IBOutlet id <CalculatorDataSource> dataSource;
-
+- (void)setDataSource:(id<CalculatorDataSource>)data;
 @end

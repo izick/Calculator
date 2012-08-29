@@ -54,9 +54,32 @@
     return self;
 }
 
-- (void)drawEquation
+- (int)getMaxX
 {
-    [self.dataSource getPoints:self x:1];
+    return (self.bounds.size.height > self.bounds.size.width) ?
+        self.bounds.size.width : self.bounds.size.height;
+
+}
+
+- (void)drawRect:(CGRect)rect
+{
+    CGContextRef context = UIGraphicsGetCurrentContext();
+
+    int i = 0;
+    int maxx = [self getMaxX];
+    CGPoint pt;
+
+    UIGraphicsPushContext(context);
+    CGContextBeginPath(context);
+    
+    while (i < maxx) {
+        pt = [self.dataSource getPoints:i];
+        CGContextAddLineToPoint(context, pt.x, pt.y);
+        i++;
+    }
+    CGContextStrokePath(context);
+    UIGraphicsPopContext();
+
 }
 
 - (void)drawCircleAtPoint:(CGPoint)pt radius:(CGFloat)radius inContext:(CGContextRef)context
@@ -68,7 +91,7 @@
     UIGraphicsPopContext();
     
 }
-
+/*
 - (void)drawRect:(CGRect)rect
 {
     CGContextRef context = UIGraphicsGetCurrentContext();
@@ -126,7 +149,7 @@
     CGContextStrokePath(context);
     UIGraphicsPopContext();
 }
-
+*/
 - (void)pinch:(UIPinchGestureRecognizer *)gesture
 {
     if (gesture.state == UIGestureRecognizerStateChanged ||

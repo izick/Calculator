@@ -17,11 +17,10 @@
 
 @implementation GraphViewController
 @synthesize graphview = _graphview;
-@synthesize dataSource = _dataSource;
 
 - (void)setDataSource:(id<CalculatorDataSource>)data
 {
-    _dataSource = data;
+    self.graphview.dataSource = data;
     [self.graphview setNeedsDisplay];
 }
 
@@ -29,7 +28,6 @@
 - (void)setGraphView:(GraphView *)graphview
 {
     _graphview = graphview;
-//    self.graphview.dataSource = self;
     [self.graphview addGestureRecognizer:[[UIPinchGestureRecognizer alloc] initWithTarget:self.graphview action:@selector(pinch:)]];
     [self.graphview addGestureRecognizer:[[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(smile:)]];
 }
@@ -44,16 +42,6 @@
     }
 }
 
-/*
-- (CGPoint)getPoints:(NSString *)equation :(double)x
-{
-    CGPoint point;
-    point.x = x;
-    [variables setObject:[NSNumber numberWithDouble:x] forKey:@"X"];
-    point.y = [self.brain performOperation:equation :variables];
-    return point;
-}
-*/
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation
 {

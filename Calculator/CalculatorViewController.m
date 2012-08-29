@@ -51,7 +51,8 @@
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
 {
     if ([segue.identifier isEqualToString:@"Graph"]) {
-        [segue.destinationViewController setDataSource:self];
+        GraphViewController *newvc = segue.destinationViewController;
+        [newvc setDataSource:self];
     }
 }
 
@@ -88,7 +89,6 @@
         self.display.text = [NSString stringWithFormat:@"-%@", self.display.text];
     }
 }
-
 
 - (IBAction)operationPressed:(UIButton *)sender {
     if (self.userIsInTheMiddleOfEnteringANumber) {
@@ -129,7 +129,7 @@
     CGPoint point;
     point.x = x;
     [variables setObject:[NSNumber numberWithDouble:x] forKey:@"X"];
-    point.y = [self.brain performOperation:self.display.text :variables];
+    point.y = [self.brain performOperation:self.eval.text :variables];
     return point;
 }
 
