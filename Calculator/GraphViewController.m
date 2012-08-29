@@ -10,26 +10,29 @@
 #import "GraphViewController.h"
 #import "GraphView.h"
 
-@interface GraphViewController()
+@interface GraphViewController() <CalculatorDataSource>
 
-@property (nonatomic, weak) IBOutlet GraphView *graphview;
+@property (nonatomic, weak) IBOutlet GraphView *graphView;
+@property (nonatomic, weak) IBOutlet id <CalculatorDataSource> dataSource;
 @end
 
 @implementation GraphViewController
-@synthesize graphview = _graphview;
+@synthesize graphView = _graphView;
+@synthesize dataSource = _dataSource;
 
-- (void)setDataSource:(id<CalculatorDataSource>)data
+- (void)setDataSource:(id<CalculatorDataSource>)dataSource
 {
-    self.graphview.dataSource = data;
-    [self.graphview setNeedsDisplay];
+    _dataSource = dataSource;
+    [self.graphView setNeedsDisplay];
 }
 
 
-- (void)setGraphView:(GraphView *)graphview
+- (void)setGraphView:(GraphView *)graphView
 {
-    _graphview = graphview;
-    [self.graphview addGestureRecognizer:[[UIPinchGestureRecognizer alloc] initWithTarget:self.graphview action:@selector(pinch:)]];
-    [self.graphview addGestureRecognizer:[[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(smile:)]];
+    _graphView = graphView;
+    self.graphView.dataSource = self;
+    [self.graphView addGestureRecognizer:[[UIPinchGestureRecognizer alloc] initWithTarget:self.graphView action:@selector(pinch:)]];
+    [self.graphView addGestureRecognizer:[[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(smile:)]];
 }
 
 - (void) smile:(UIPanGestureRecognizer *)gesture
@@ -38,10 +41,14 @@
         gesture.state == UIGestureRecognizerStateEnded) {
         
 //        self.happiness += ([gesture translationInView:self.graphview].y / 2);
-        [gesture setTranslation:CGPointMake(0, 0) inView:self.graphview];
+        [gesture setTranslation:CGPointMake(0, 0) inView:self.graphView];
     }
 }
 
+- (CGPoint)getPoints:(double)x
+{
+    return [self.dataSource getPoints:x];
+}
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation
 {

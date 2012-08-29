@@ -20,6 +20,8 @@
 
 @property (nonatomic) CGFloat scale;
 @property (nonatomic) CGFloat smile;
+@property (assign) CGPoint zero;
+
 
 - (void)pinch:(UIPinchGestureRecognizer *)gesture;
 

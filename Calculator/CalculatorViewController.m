@@ -129,7 +129,7 @@
     CGPoint point;
     point.x = x;
     [variables setObject:[NSNumber numberWithDouble:x] forKey:@"X"];
-    point.y = [self.brain performOperation:self.eval.text :variables];
+    point.y = [self.brain performOperation:nil :variables];
     return point;
 }
 

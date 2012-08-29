@@ -9,17 +9,24 @@
 #import "GraphView.h"
 
 @interface GraphView()
+
 @end
 
 @implementation GraphView
 
 @synthesize scale = _scale;
 @synthesize smile = _smile;
-@synthesize dataSource;
+@synthesize zero;
+@synthesize dataSource = _dataSource;
 
 - (void)setScale:(CGFloat)scale {
     _scale = scale;
     [self setNeedsDisplay];
+}
+
+- (void)setDataSource:(id<CalculatorDataSource>)dataSource
+{
+    _dataSource = dataSource;
 }
 
 - (void)setSmile:(CGFloat)happiness
@@ -30,13 +37,14 @@
 - (void)setup
 {
     self.contentMode = UIViewContentModeRedraw;
-    self.scale = 0.95;
-    
+    self.scale = 1;
+    zero.x = self.bounds.size.height;
+    zero.y = 0;
 }
 
 - (int)flipY:(int)y
 {
-    return (self.bounds.size.height - y);
+    return ([self getMaxY] - y);
 }
 
 - (void)awakeFromNib
@@ -52,6 +60,12 @@
         [self setup];
     }
     return self;
+}
+
+- (int)getMaxY
+{
+    return (self.bounds.size.height > self.bounds.size.width) ?
+    self.bounds.size.height : self.bounds.size.width;
 }
 
 - (int)getMaxX
@@ -72,8 +86,24 @@
     UIGraphicsPushContext(context);
     CGContextBeginPath(context);
     
+    CGContextMoveToPoint(context, zero.x, zero.y);
+    
+    CGContextAddLineToPoint(context, self.bounds.size.width - zero.x, self.bounds.size.height);
+    CGContextAddLineToPoint(context, self.bounds.size.width - zero.x, self.bounds.size.height);
+    
+    if (zero.x != 0 && zero.y != self.bounds.size.height)
+    CGContextAddLineToPoint(context,0, self.bounds.size.height - zero.y);
+    CGContextAddLineToPoint(context,self.bounds.size.width - zero.x, self.bounds.size.height - zero.y);
+
+    pt = [self.dataSource getPoints:i++];
+    pt.y = [self flipY:pt.y] * self.scale;
+    pt.x *= self.scale;
+    
     while (i < maxx) {
+        CGContextMoveToPoint(context, pt.x, pt.y);
         pt = [self.dataSource getPoints:i];
+        pt.y = [self flipY:pt.y] * self.scale;
+        pt.x *= self.scale;
         CGContextAddLineToPoint(context, pt.x, pt.y);
         i++;
     }

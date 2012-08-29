@@ -162,7 +162,8 @@
 }
 
 - (double)performOperation:(NSString *)operation: (NSDictionary *)variables {
-    [self.programStack addObject:operation];
+    if (operation != nil)
+        [self.programStack addObject:operation];
     return [[self class] runProgram:self.program usingVariableValues:variables];
 }
 
