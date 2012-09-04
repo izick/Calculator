@@ -38,8 +38,8 @@
 {
     self.contentMode = UIViewContentModeRedraw;
     self.scale = 1;
-    zero.x = self.bounds.size.height;
-    zero.y = 0;
+    zero.y = self.bounds.size.height;
+    zero.x = 0;
 }
 
 - (int)flipY:(int)y
@@ -86,20 +86,21 @@
     UIGraphicsPushContext(context);
     CGContextBeginPath(context);
     
+    [[UIColor blueColor] setStroke];
+    // Y axis
+    CGContextMoveToPoint(context, zero.x, 0);
+    CGContextAddLineToPoint(context, zero.x, self.bounds.size.height);
+    // X axis
+    CGContextMoveToPoint(context, 0, zero.y);
+    CGContextAddLineToPoint(context, self.bounds.size.width, zero.y);
     CGContextMoveToPoint(context, zero.x, zero.y);
-    
-    CGContextAddLineToPoint(context, self.bounds.size.width - zero.x, self.bounds.size.height);
-    CGContextAddLineToPoint(context, self.bounds.size.width - zero.x, self.bounds.size.height);
-    
-    if (zero.x != 0 && zero.y != self.bounds.size.height)
-    CGContextAddLineToPoint(context,0, self.bounds.size.height - zero.y);
-    CGContextAddLineToPoint(context,self.bounds.size.width - zero.x, self.bounds.size.height - zero.y);
 
+    [[UIColor blackColor] setStroke];
     pt = [self.dataSource getPoints:i++];
     pt.y = [self flipY:pt.y] * self.scale;
     pt.x *= self.scale;
     
-    while (i < maxx) {
+    while (i < (maxx * (1.0/self.scale)) ){
         CGContextMoveToPoint(context, pt.x, pt.y);
         pt = [self.dataSource getPoints:i];
         pt.y = [self flipY:pt.y] * self.scale;
