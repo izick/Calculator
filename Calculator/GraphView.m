@@ -72,7 +72,6 @@
 {
     return (self.bounds.size.height > self.bounds.size.width) ?
         self.bounds.size.width : self.bounds.size.height;
-
 }
 
 - (void)drawRect:(CGRect)rect

@@ -41,8 +41,12 @@
         gesture.state == UIGestureRecognizerStateEnded) {
         
 //        self.happiness += ([gesture translationInView:self.graphview].y / 2);
-        [gesture setTranslation:CGPointMake(0, 0) inView:self.graphView];
+        CGPoint move = [gesture translationInView:self.graphView];
+        self.graphView.zero = CGPointMake(move.x + self.graphView.zero.x,
+                                          self.graphView.zero.y + move.y);
+        [gesture setTranslation:CGPointZero inView:self.graphView];
     }
+    [self.graphView setNeedsDisplay];
 }
 
 - (CGPoint)getPoints:(double)x
