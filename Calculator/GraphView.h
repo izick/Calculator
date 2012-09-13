@@ -24,6 +24,7 @@
 
 
 - (void)pinch:(UIPinchGestureRecognizer *)gesture;
+- (void)tap:(UITapGestureRecognizer *)gesture;
 
 @property (nonatomic, weak) IBOutlet id <CalculatorDataSource> dataSource;
 @end

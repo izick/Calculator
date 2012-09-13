@@ -33,6 +33,9 @@
     self.graphView.dataSource = self;
     [self.graphView addGestureRecognizer:[[UIPinchGestureRecognizer alloc] initWithTarget:self.graphView action:@selector(pinch:)]];
     [self.graphView addGestureRecognizer:[[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(smile:)]];
+    UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self.graphView action:@selector(tap:)];
+    tap.numberOfTapsRequired = 3;
+    [self.graphView addGestureRecognizer:tap];
 }
 
 - (void) smile:(UIPanGestureRecognizer *)gesture
@@ -48,6 +51,8 @@
     }
     [self.graphView setNeedsDisplay];
 }
+
+
 
 - (CGPoint)getPoints:(double)x
 {

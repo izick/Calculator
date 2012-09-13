@@ -78,8 +78,8 @@
 {
     CGContextRef context = UIGraphicsGetCurrentContext();
 
-    int i = 0;
-    int maxx = [self getMaxX];
+    int i = 0 - zero.x;
+    int maxx = [self getMaxX] + zero.y;
     CGPoint pt;
 
     UIGraphicsPushContext(context);
@@ -87,23 +87,24 @@
     
     [[UIColor blueColor] setStroke];
     // Y axis
-    CGContextMoveToPoint(context, zero.x, 0);
-    CGContextAddLineToPoint(context, zero.x, self.bounds.size.height);
+    CGContextMoveToPoint(context, zero.x * self.scale, 0);
+    CGContextAddLineToPoint(context, zero.x * self.scale, self.bounds.size.height);
     // X axis
-    CGContextMoveToPoint(context, 0, zero.y);
-    CGContextAddLineToPoint(context, self.bounds.size.width, zero.y);
-    CGContextMoveToPoint(context, zero.x, zero.y);
+    CGContextMoveToPoint(context, 0, zero.y * self.scale);
+    CGContextAddLineToPoint(context, self.bounds.size.width, zero.y * self.scale);
+    CGContextMoveToPoint(context, zero.x * self.scale, zero.y * self.scale);
 
     [[UIColor blackColor] setStroke];
+    
     pt = [self.dataSource getPoints:i++];
-    pt.y = [self flipY:pt.y] * self.scale;
-    pt.x *= self.scale;
+    pt.y = ([self flipY:pt.y] + (self.bounds.size.height - zero.y)) * self.scale;
+    pt.x = (pt.x + zero.x) * self.scale;
     
     while (i < (maxx * (1.0/self.scale)) ){
         CGContextMoveToPoint(context, pt.x, pt.y);
         pt = [self.dataSource getPoints:i];
-        pt.y = [self flipY:pt.y] * self.scale;
-        pt.x *= self.scale;
+        pt.y = ([self flipY:pt.y] - (self.bounds.size.height - zero.y)) * self.scale;
+        pt.x = (pt.x + zero.x) * self.scale;
         CGContextAddLineToPoint(context, pt.x, pt.y);
         i++;
     }
@@ -188,6 +189,19 @@
         gesture.scale = 1;
     }
         
+}
+
+- (void)tap:(UITapGestureRecognizer *)gesture
+{
+    if (gesture.state == UIGestureRecognizerStateChanged ||
+        gesture.state == UIGestureRecognizerStateEnded) {
+        
+        CGPoint pt = [gesture locationInView:self];
+        zero = pt;
+        [self setNeedsDisplay];
+
+        
+    }
 }
 
 @end
