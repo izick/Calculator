@@ -16,7 +16,6 @@
 @property (nonatomic) BOOL userIsInTheMiddleOfEnteringANumber;
 @property (nonatomic, strong) CalculatorBrain *brain;
 @property (nonatomic, strong) NSMutableDictionary *variables;
-//@property (weak, nonatomic) IBOutlet UIButton *graph;
 
 @end
 
@@ -131,6 +130,11 @@
     [variables setObject:[NSNumber numberWithDouble:x] forKey:@"X"];
     point.y = [self.brain performOperation:nil :variables];
     return point;
+}
+
+- (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation
+{
+    return YES;
 }
 
 @end

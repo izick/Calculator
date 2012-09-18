@@ -10,7 +10,7 @@
 #import "GraphViewController.h"
 #import "GraphView.h"
 
-@interface GraphViewController() <CalculatorDataSource>
+@interface GraphViewController() <CalculatorDataSource, UISplitViewControllerDelegate>
 
 @property (nonatomic, weak) IBOutlet GraphView *graphView;
 @property (nonatomic, weak) IBOutlet id <CalculatorDataSource> dataSource;
@@ -63,4 +63,23 @@
 {
     return YES;
 }
+/*
+
+– (void)splitViewController:shouldHideViewController:inOrientation:
+{
+    
+}
+– (void)splitViewController:willHideViewController:withBarButtonItem:forPopoverController:
+{
+    
+}
+– (void)splitViewController:willShowViewController:invalidatingBarButtonItem:
+{
+    
+}
+– (void)splitViewController:popoverController:willPresentViewController:
+{
+    
+}*/
+
 @end
